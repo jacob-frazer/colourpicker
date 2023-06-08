@@ -6,6 +6,9 @@ import { HexColorPicker, HexColorInput } from "react-colorful";
 
 import { generateComplimentaryColors, generateAnalogousColors} from "./utils/colour_gen"
 import Circle from './Components/Circle';
+import Background from './Components/Background';
+
+import ColourContext from './ColourContext';
 
 const CombinedColor = () => {
   const context = useContext(ColourContext);
@@ -36,21 +39,12 @@ const ReceivesColors = () => {
   
   return (
     <>
-      <div>The main (selected) colour is: {main_colour}</div>
       <Circle colour={main_colour} />
-      <div>2nd colour: {colour2}</div>
       <Circle colour={colour2} />
-      <div>3rd colour: {colour3}</div>
       <Circle colour={colour3} />
     </>
   )
 }
-
-
-// use react context to hold + update colour variables
-type Colour = string;
-type SetColour = (color: Colour) => void;
-const ColourContext = createContext<{ colour: Colour; setColour: SetColour } | undefined>(undefined);
 
 
 function App() {
@@ -61,16 +55,17 @@ function App() {
 
   // needed components colorpicker, routes for different layouts, generic website w/animations
   // 
-  const [colour, setColour] = useState<Colour>("000000");
+  const [colour, setColour] = useState("000000");
 
   return (
-    <div>
-      aaaa
+    <>
       <ColourContext.Provider value={{colour, setColour}}>
-        <CombinedColor/>
-        <ReceivesColors/> 
+        <Background>
+          <CombinedColor/>
+          <ReceivesColors/> 
+        </Background>
       </ColourContext.Provider>
-    </div>
+    </>
   );
 }
 
