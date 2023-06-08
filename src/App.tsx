@@ -1,24 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext } from 'react';
+import { useState, createContext } from 'react';
 import './App.css';
 
-function App() {
+import { HexColorPicker, HexColorInput } from "react-colorful";
+
+const CombinedColor = () => {
+  const {colour, setColour} = useContext(ColourContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+      <HexColorPicker color={colour} onChange={setColour} />
+      <HexColorInput color={colour} onChange={setColour} />
+    </>
+  
+  );
+};
+
+const ReceivesColors = () => {
+  
+  const {colour, setColour} = useContext(ColourContext);
+  return (
+    <div>Current colours are: {colour}</div>
+  )
+}
+
+ // use react context to hold + update colour variables
+ const ColourContext = createContext({
+  colour: "#000",
+  setColour: () => {}
+ });
+
+
+function App() {
+  // generic modern looking app potentially a couple different layouts
+
+  // colour picker to let you select primary, secondary, highlight colours
+  // updates the whole page so you can see how they look on a website together
+
+  // needed components colorpicker, routes for different layouts, generic website w/animations
+  // 
+  const [colour, setColour] = useState("000000");
+  const value = {colour, setColour}
+ 
+
+  return (
+    <div>
+      aaaa
+      <ColourContext.Provider value={value}>
+        <CombinedColor/>
+        <ReceivesColors/> 
+      </ColourContext.Provider>
     </div>
   );
 }
