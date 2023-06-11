@@ -7,6 +7,7 @@ import ColourList from './Components/ColoursList';
 import Background from './Components/Background';
 import Header from './Components/Header';
 import Body from './Components/Body';
+import Footer from './Components/Footer';
 
 import ColourContext from './ColourContext';
 
@@ -25,7 +26,8 @@ function App() {
 
   // needed components colorpicker, routes for different layouts, generic website w/animations
   // 
-  const [colours, setColours] = useState(["000000", "40E0D0", "D5CAFF"]);
+  
+  const [colours, setColours] = useState(["#0a051f", "#b200ff", "#004cff"]);
 
   return (
     <>
@@ -34,6 +36,7 @@ function App() {
           <ColourList colors={colours}/>
           <Header/>
           <Body/>
+          <Footer/>
         </Background>
       </ColourContext.Provider>
     </>
