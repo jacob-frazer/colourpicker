@@ -11,10 +11,10 @@ const Background: React.FC<BackgroundProps> = ({ children }) => {
       return null; // handle undefined context if needed
     }
   
-    const { colour, setColour } = context;
+    const { colours, setColours } = context;
 
   const backgroundStyle = {
-    backgroundColor: colour,
+    backgroundColor: colours[0],
     width: '100%',
     height: '100vh',
     display: 'flex',

@@ -1,14 +1,16 @@
 interface CircleProps {
     colour: string;
+    onClick: () => void;
   }
   
   const Circle: React.FC<CircleProps> = ({ colour }) => {
     const circleStyle = {
-      width: '100px',
-      height: '100px',
+      width: '40px',
+      height: '40px',
       borderRadius: '50%',
       backgroundColor: colour,
       margin: '10px',
+      cursor: 'pointer',
     };
   
     return <div style={circleStyle}></div>;

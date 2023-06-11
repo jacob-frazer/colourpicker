@@ -1,8 +1,8 @@
 import { useState, createContext } from 'react';
 
 // use react context to hold + update colour variables
-type Colour = string;
-type SetColour = (color: Colour) => void;
-const ColourContext = createContext<{ colour: Colour; setColour: SetColour } | undefined>(undefined);
+type Colours = string[];
+type SetColours = (color: Colours) => void;
+const ColourContext = createContext<{ colours: Colours; setColours: SetColours } | undefined>(undefined);
 
 export default ColourContext

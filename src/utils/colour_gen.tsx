@@ -68,7 +68,7 @@ export function generateComplimentaryColors(hexColor: string): [string, string, 
     } else {
       [r, g, b] = [c, 0, x];
     }
-    return [r, g, b];
+    return [Math.floor(r), Math.floor(g), Math.floor(b),];
   }
   
   function rgbToHex([r, g, b]: [number, number, number]): string {

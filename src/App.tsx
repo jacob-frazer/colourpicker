@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { useState, createContext } from 'react';
 import './App.css';
 
-import { HexColorPicker, HexColorInput } from "react-colorful";
+import { HexColorPicker, HexColorInput, } from "react-colorful";
 
 import { generateComplimentaryColors, generateAnalogousColors} from "./utils/colour_gen"
-import Circle from './Components/Circle';
+import ColourList from './Components/ColoursList';
 import Background from './Components/Background';
 
 import ColourContext from './ColourContext';
@@ -15,12 +15,18 @@ const CombinedColor = () => {
   if (!context) {
     return null; // handle undefined context if needed
   }
-  
-  const { colour, setColour } = context;
+
+  const { colours, setColours } = context;
+  const gen_set_colours = (c: string) => {
+    let calced_colours = generateAnalogousColors(c)
+    setColours(calced_colours)
+  }
   return (
     <>
-      <HexColorPicker color={colour} onChange={setColour} />
+      <HexColorPicker color={colours[0]} onChange={gen_set_colours} />
+      {/* 
       <HexColorInput color={colour} onChange={setColour} />
+      */}
     </>
   
   );
@@ -32,16 +38,14 @@ const ReceivesColors = () => {
     return null; // handle undefined context if needed
   }
 
-  const { colour, setColour } = context;
+  const { colours, setColours } = context;
 
   //let [main_colour, colour2, colour3] = generateComplimentaryColors(colour);
-  let [main_colour, colour2, colour3] = generateAnalogousColors(colour);
+  //let [main_colour, colour2, colour3] = generateAnalogousColors(colour);
   
   return (
     <>
-      <Circle colour={main_colour} />
-      <Circle colour={colour2} />
-      <Circle colour={colour3} />
+      <ColourList colors={colours}/>
     </>
   )
 }
@@ -55,11 +59,11 @@ function App() {
 
   // needed components colorpicker, routes for different layouts, generic website w/animations
   // 
-  const [colour, setColour] = useState("000000");
+  const [colours, setColours] = useState(["000000", "40E0D0", "D5CAFF"]);
 
   return (
     <>
-      <ColourContext.Provider value={{colour, setColour}}>
+      <ColourContext.Provider value={{colours, setColours}}>
         <Background>
           <CombinedColor/>
           <ReceivesColors/> 
