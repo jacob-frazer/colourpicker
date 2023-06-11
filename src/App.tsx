@@ -2,53 +2,19 @@ import React, { useContext } from 'react';
 import { useState, createContext } from 'react';
 import './App.css';
 
-import { HexColorPicker, HexColorInput, } from "react-colorful";
-
 import { generateComplimentaryColors, generateAnalogousColors} from "./utils/colour_gen"
 import ColourList from './Components/ColoursList';
 import Background from './Components/Background';
+import Header from './Components/Header';
+import Body from './Components/Body';
 
 import ColourContext from './ColourContext';
 
-const CombinedColor = () => {
-  const context = useContext(ColourContext);
-  if (!context) {
-    return null; // handle undefined context if needed
-  }
 
-  const { colours, setColours } = context;
-  const gen_set_colours = (c: string) => {
-    let calced_colours = generateAnalogousColors(c)
-    setColours(calced_colours)
-  }
-  return (
-    <>
-      <HexColorPicker color={colours[0]} onChange={gen_set_colours} />
-      {/* 
-      <HexColorInput color={colour} onChange={setColour} />
-      */}
-    </>
-  
-  );
-};
-
-const ReceivesColors = () => {
-  const context = useContext(ColourContext);
-  if (!context) {
-    return null; // handle undefined context if needed
-  }
-
-  const { colours, setColours } = context;
-
-  //let [main_colour, colour2, colour3] = generateComplimentaryColors(colour);
-  //let [main_colour, colour2, colour3] = generateAnalogousColors(colour);
-  
-  return (
-    <>
-      <ColourList colors={colours}/>
-    </>
-  )
-}
+// TODO:
+// break the above functional components to own function
+// pass these into a body function which should now centre it? - make them centre themselves?
+// change styling of header to be cool + larger + take colour from selection
 
 
 function App() {
@@ -65,8 +31,9 @@ function App() {
     <>
       <ColourContext.Provider value={{colours, setColours}}>
         <Background>
-          <CombinedColor/>
-          <ReceivesColors/> 
+          <ColourList colors={colours}/>
+          <Header/>
+          <Body/>
         </Background>
       </ColourContext.Provider>
     </>

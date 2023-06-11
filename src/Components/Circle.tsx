@@ -1,6 +1,6 @@
 interface CircleProps {
     colour: string;
-    onClick: () => void;
+    onClick?: React.MouseEventHandler<HTMLSpanElement> | undefined;
   }
   
   const Circle: React.FC<CircleProps> = ({ colour }) => {
