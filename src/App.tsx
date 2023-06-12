@@ -4,6 +4,7 @@ import './App.css';
 
 import { generateComplimentaryColors, generateAnalogousColors} from "./utils/colour_gen"
 import ColourList from './Components/ColoursList';
+import SidePanel from './Components/ColourSidePanel';
 import Background from './Components/Background';
 import Header from './Components/Header';
 import Body from './Components/Body';
@@ -34,6 +35,7 @@ function App() {
       <ColourContext.Provider value={{colours, setColours}}>
         <Background>
           <ColourList colors={colours}/>
+          <SidePanel/>
           <Header/>
           <Body/>
           <Footer/>
