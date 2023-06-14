@@ -1,83 +1,91 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Circle from './Circle';
-
 import ColourContext from '../ColourContext';
+import { FiClipboard, FiCheck } from 'react-icons/fi';
 
 interface ColorListProps {
   colors: string[];
 }
 
-
-function getLuminance(color: string): number {
-  // Extract RGB values from the color
-  const hexColor = color.replace('#', '');
-  const red = parseInt(hexColor.substr(0, 2), 16);
-  const green = parseInt(hexColor.substr(2, 2), 16);
-  const blue = parseInt(hexColor.substr(4, 2), 16);
-
-  // Calculate relative luminance using the formula for sRGB colors
-  const r = red / 255;
-  const g = green / 255;
-  const b = blue / 255;
-
-  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  return luminance;
-}
-
-// this needs to be hidden by default on mobile and brought up by tapping icon?
-
 const ColourList: React.FC<ColorListProps> = ({ colors }) => {
-    const context = useContext(ColourContext);
-    if (!context) {
-      return null; // handle undefined context if needed
-    }
-  
-    const { colours, setColours } = context;
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const context = useContext(ColourContext);
+  if (!context) {
+    return null; // handle undefined context if needed
+  }
 
-    const isLightBackground = colours.some((color) => getLuminance(color) > 0.5);
+  const { colours, setColours } = context;
   
-    const backgroundStyle: React.CSSProperties = {
-        backgroundColor: isLightBackground ? 'lightgray' : 'darkgray',
-        padding: '10px',
-        borderRadius: '10px',
-        width: '200px',
-        position: 'absolute',
-        top: '10px',
-        left: '10px',
-        borderColor: colours[1],
-      };
-    
-    const spanStyle: React.CSSProperties = {
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '14px',
-        fontWeight: 'bold',
-        cursor: 'pointer'
-    };
-  
-    const handleCopyToClipboard = (value: string) => {
-      navigator.clipboard.writeText(value);
-      alert('Copied!');
-    };
 
-    return (
-      <div style={backgroundStyle}>
-        {colours.map((color, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-            <Circle 
-                colour={color} 
-                onClick={() => handleCopyToClipboard(color)}
-            />
-            <span 
-              style={{ ...spanStyle, marginLeft: '10px' }}
-              onClick={() => handleCopyToClipboard(color)}
-            >
-              {color}
-            </span>
-
-          </div>
-        ))}
-      </div>
-    );
+  const backgroundStyle: React.CSSProperties = {
+    backgroundColor: colours[0],
+    padding: '10px',
+    borderRadius: '10px',
+    width: '200px',
+    position: 'absolute',
+    top: '10px',
+    left: '10px',
+    border: '3px solid',
+    borderColor: colours[1],
   };
-  
-  export default ColourList;
+
+  const spanStyle: React.CSSProperties = {
+    fontFamily: 'monospace',
+    fontSize: '16px',
+    fontWeight: '200',
+    cursor: 'pointer',
+    color: colours[1],
+    display: 'flex',
+    alignItems: 'center',
+  };
+
+  const iconStyle: React.CSSProperties = {
+    marginLeft: '5px',
+    color: colours[1],
+    cursor: 'pointer',
+    transition: 'color 0.3s ease',
+  };
+
+  const titleStyle: React.CSSProperties = {
+    fontFamily: 'monospace',
+    fontSize: '24px',
+    fontWeight: '200',
+    textAlign: 'center',
+    color: colours[1],
+    marginBottom: '10px',
+  };
+
+  const handleCopyToClipboard = (value: string, index: number) => {
+    navigator.clipboard.writeText(value);
+    setCopiedIndex(index);
+    setTimeout(() => {
+      setCopiedIndex(null);
+    }, 2000);
+  };
+
+  return (
+    <div style={backgroundStyle}>
+      <div style={titleStyle}>Current Palette</div>
+      {colors.map((color, i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+          <Circle colour={color} onClick={() => handleCopyToClipboard(color, i)} />
+          <span
+            style={{ ...spanStyle, marginLeft: '10px' }}
+            onClick={() => handleCopyToClipboard(color, i)}
+          >
+            {color}
+          </span>
+          <div style={{ display: 'flex', marginLeft: '5px' }}>
+            {copiedIndex === i ? (
+              <FiCheck style={{ ...iconStyle, color: colours[2] }} />
+            ) : (
+              <FiClipboard style={{ ...iconStyle }} />
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ColourList;

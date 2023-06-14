@@ -11,6 +11,9 @@ interface CircleProps {
       backgroundColor: colour,
       margin: '10px',
       cursor: 'pointer',
+      borderColor: 'black',
+      borderWidth: '2px',
+      borderStyle: 'solid',
     };
   
     return <div style={circleStyle}></div>;

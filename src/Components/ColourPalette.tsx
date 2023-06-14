@@ -26,6 +26,7 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({ name, colors }) => {
     fontSize: '16px',
     fontWeight: '200',
     marginBottom: '10px',
+    color: colours[1],
   };
 
   const colorsContainerStyle: React.CSSProperties = {
@@ -38,6 +39,9 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({ name, colors }) => {
     height: '50px',
     marginRight: '5px',
     borderRadius: '5px',
+    borderColor: 'black',
+    borderWidth: '2px',
+    borderStyle: 'solid',
   };
 
   return (
