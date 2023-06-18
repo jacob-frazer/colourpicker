@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CombinedColour from './ColourSelect'
+import BodyText from './BodyText';
 
 const Body: React.FC = () => {
   const bodyStyle: React.CSSProperties = {
@@ -13,6 +14,7 @@ const Body: React.FC = () => {
   return (
     <div style={bodyStyle}>
         <CombinedColour/>
+        <BodyText text="your home for beautiful palettes"/>
     </div>
   );
 };

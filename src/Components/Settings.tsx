@@ -4,7 +4,7 @@ import ColourContext from '../Contexts/ColourContext';
 
 interface SettingsPageProps {  }
   
-const SettingsPage: React.FC<SettingsPageProps> = () => {
+const Settings: React.FC<SettingsPageProps> = () => {
   const { settings, updateSetting } = useContext(SettingsContext);
   const colContext = useContext(ColourContext);
   if (!colContext) {
@@ -26,53 +26,77 @@ const SettingsPage: React.FC<SettingsPageProps> = () => {
     updateSetting('defaultPaletteAlgorithm', algorithm);
   };
 
+  const containerStyle: React.CSSProperties = {
+    position: 'fixed',
+    bottom: '10px',
+    left: '10px',
+    padding: '10px',
+    backgroundColor: 'transparent',
+    border: `2px solid ${colours[1]}`,
+    borderRadius: '5px',
+    fontFamily: 'monospace',
+    fontSize: '14px',
+    fontWeight: 'lighter',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    color: colours[1],
+  };
+
+  const settingItemStyle: React.CSSProperties = {
+    marginBottom: '5px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  };
+  
+  const labelStyle: React.CSSProperties = {
+    marginRight: '10px',
+    textAlign: 'left',
+    flex: 1,
+  };
+
   return (
-    <div style={{ backgroundColor: colours[1], padding: '20px', fontFamily: 'monospace' }}>
-      <h2>Settings Page</h2>
-      <div style={{ marginBottom: '10px' }}>
-        <label htmlFor="advancedMode">Advanced Mode</label>
+    <div style={ containerStyle }>
+      <h2>App Settings</h2>
+      <div style={settingItemStyle}>
+        <label htmlFor="advancedMode" style={labelStyle}>Individual Colour Select</label>
         <input
           id="advancedMode"
           type="checkbox"
           checked={settings.advancedMode}
           onChange={handleToggleAdvancedMode}
         />
-        <span style={{ marginLeft: '10px', fontSize: '14px', fontWeight: 'normal' }}>Allow user to individually set all colours</span>
       </div>
-      <div style={{ marginBottom: '10px' }}>
-        <label htmlFor="numberOfColours">Number of Colours</label>
+      <div style={settingItemStyle}>
+        <label htmlFor="numberOfColours" style={labelStyle}>Number of Colours</label>
         <select
           id="numberOfColours"
           value={settings.numberOfColours}
           onChange={handleNumberChange}
-          style={{ marginLeft: '10px' }}
         >
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        <span style={{ fontSize: '14px', fontWeight: 'normal' }}>How many colours to set in palette</span>
       </div>
-      <div style={{ marginBottom: '10px' }}>
-        <label htmlFor="defaultPaletteAlgorithm">Default Palette Algorithm</label>
+      <div style={settingItemStyle}>
+        <label htmlFor="defaultPaletteAlgorithm" style={labelStyle}>Palette Algorithm</label>
         <select
           id="defaultPaletteAlgorithm"
           value={settings.defaultPaletteAlgorithm}
           onChange={handleAlgorithmChange}
-          style={{ marginLeft: '10px' }}
         >
           <option value="algorithm1">Algorithm 1</option>
           <option value="algorithm2">Algorithm 2</option>
           <option value="algorithm3">Algorithm 3</option>
         </select>
-        <span style={{ fontSize: '14px', fontWeight: 'normal' }}>Explanation of the default palette algorithm</span>
-      </div>
-      <div style={{ marginTop: '10px', fontSize: '14px', fontWeight: 'normal' }}>
-        <span>Hover setting for more info</span>
       </div>
     </div>
   );
 };
 
-export default SettingsPage;
+export default Settings;
