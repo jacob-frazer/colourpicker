@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Circle from './Circle';
-import ColourContext from '../ColourContext';
+import ColourContext from '../Contexts/ColourContext';
 import { FiClipboard, FiCheck } from 'react-icons/fi';
 
 interface ColorListProps {
@@ -68,16 +68,16 @@ const ColourList: React.FC<ColorListProps> = ({ colors }) => {
       <div style={titleStyle}>Current Palette</div>
       {colors.map((color, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <Circle colour={color} onClick={() => handleCopyToClipboard(color, i)} />
+          <Circle colour={color} />
           <span
             style={{ ...spanStyle, marginLeft: '10px' }}
             onClick={() => handleCopyToClipboard(color, i)}
           >
             {color}
           </span>
-          <div style={{ display: 'flex', marginLeft: '5px' }}>
+          <div style={{ display: 'flex', marginLeft: '5px' }} onClick={() => handleCopyToClipboard(color, i)}>
             {copiedIndex === i ? (
-              <FiCheck style={{ ...iconStyle, color: colours[2] }} />
+              <FiCheck style={{ ...iconStyle, color: colours[1] }} />
             ) : (
               <FiClipboard style={{ ...iconStyle }} />
             )}

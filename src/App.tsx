@@ -9,8 +9,9 @@ import Background from './Components/Background';
 import Header from './Components/Header';
 import Body from './Components/Body';
 import Footer from './Components/Footer';
+import Settings from './Components/SettingsOpener';
 
-import ColourContext from './ColourContext';
+import ColourContext from './Contexts/ColourContext';
 
 
 // TODO:
@@ -38,6 +39,7 @@ function App() {
           <SidePanel/>
           <Header/>
           <Body/>
+          <Settings/>
           <Footer/>
         </Background>
       </ColourContext.Provider>

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ColourContext from '../ColourContext';
+import ColourContext from '../Contexts/ColourContext';
 
 interface BackgroundProps {
   children: React.ReactNode;

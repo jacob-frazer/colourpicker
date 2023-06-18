@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ColourContext from '../ColourContext';
+import ColourContext from '../Contexts/ColourContext';
 
 import { generateComplimentaryColors, generateAnalogousColors} from "../utils/colour_gen"
 

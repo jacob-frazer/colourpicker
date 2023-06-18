@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import ColourContext from '../ColourContext';
+import ColourContext from '../Contexts/ColourContext';
 
 
 const Header: React.FC = () => {

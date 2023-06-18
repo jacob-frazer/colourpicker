@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { createContext } from 'react';
 
 // use react context to hold + update colour variables
 type Colours = string[];

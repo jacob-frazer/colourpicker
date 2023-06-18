@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import ColorPalette from './ColourPalette';
-import ColourContext from '../ColourContext';
+import ColourContext from '../Contexts/ColourContext';
 
 import { 
   generateComplimentaryColors, 

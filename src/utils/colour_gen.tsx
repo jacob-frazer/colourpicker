@@ -62,7 +62,7 @@ export function generateComplimentaryColors(hexColor: string): [string, string, 
   const rgbColor = hexToRgb(hexColor);
   const hue = rgbToHue(rgbColor);
   const hue1 = (hue + 180) % 360;
-  const hue2 = (hue + 180) % 360;
+  const hue2 = (hue - 180) % 360;
   const rgbColor1 = hueToRgb(hue1);
   const rgbColor2 = hueToRgb(hue2);
   const hexColor1 = rgbToHex(rgbColor1);
