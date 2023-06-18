@@ -3,7 +3,7 @@ interface CircleProps {
     onClick?: React.MouseEventHandler<HTMLSpanElement> | undefined;
   }
   
-  const Circle: React.FC<CircleProps> = ({ colour }) => {
+  const Circle: React.FC<CircleProps> = ({ colour, onClick }) => {
     const circleStyle = {
       width: '40px',
       height: '40px',
@@ -16,7 +16,7 @@ interface CircleProps {
       borderStyle: 'solid',
     };
   
-    return <div style={circleStyle}></div>;
+    return <div style={circleStyle} onClick={onClick}></div>;
   };
   
   export default Circle;

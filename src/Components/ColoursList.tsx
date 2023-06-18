@@ -3,12 +3,15 @@ import Circle from './Circle';
 import ColourContext from '../Contexts/ColourContext';
 import { FiClipboard, FiCheck } from 'react-icons/fi';
 
+import SettingsContext from '../Contexts/SettingsContext';
+
 interface ColorListProps {
   colors: string[];
 }
 
 const ColourList: React.FC<ColorListProps> = ({ colors }) => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const { settings, updateSetting } = useContext(SettingsContext);
   const context = useContext(ColourContext);
   if (!context) {
     return null; // handle undefined context if needed
@@ -63,12 +66,23 @@ const ColourList: React.FC<ColorListProps> = ({ colors }) => {
     }, 2000);
   };
 
+  const handleIndividualSelection = (index: number) => {
+    if (!settings.individualColourSelect) return
+
+    // logic to give the circle a tick but need to remove it from the other circles?
+
+    // set the selected index as the selected one here
+    updateSetting("selectedColourIndex", index)
+    console.log(index)
+    console.log(settings)
+  }
+
   return (
     <div style={backgroundStyle}>
       <div style={titleStyle}>Current Palette</div>
       {colors.map((color, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <Circle colour={color} />
+          <Circle colour={color} onClick={() => handleIndividualSelection(i)} />
           <span
             style={{ ...spanStyle, marginLeft: '10px' }}
             onClick={() => handleCopyToClipboard(color, i)}

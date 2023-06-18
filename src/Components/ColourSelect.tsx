@@ -4,18 +4,28 @@ import ColourContext from '../Contexts/ColourContext';
 import { generateComplimentaryColors, generateAnalogousColors} from "../utils/colour_gen"
 
 import { HexColorPicker, HexColorInput, } from "react-colorful";
+import SettingsContext from '../Contexts/SettingsContext';
 
 
 const CombinedColor = () => {
+  const { settings, updateSetting } = useContext(SettingsContext);
   const context = useContext(ColourContext);
   if (!context) {
     return null; // handle undefined context if needed
   }
-
   const { colours, setColours } = context;
+
   const gen_set_colours = (c: string) => {
-    let calced_colours = generateAnalogousColors(c)
-    setColours(calced_colours)
+    // if individual select then just change that one colour dont regen whole spectrum
+    if (settings.individualColourSelect) {
+      let new_colours = colours.slice()
+      new_colours[settings.selectedColourIndex] = c
+      console.log(new_colours)
+      setColours(new_colours)
+    } else {
+      let calced_colours = generateAnalogousColors(c)
+      setColours(calced_colours)
+    }
   }
 
   const pickerStyles = {
@@ -38,8 +48,8 @@ const CombinedColor = () => {
 
   return (
     <>
-      <HexColorPicker color={colours[0]} onChange={gen_set_colours} style={pickerStyles}/>
-      <HexColorInput color={colours[0]} onChange={gen_set_colours} prefixed={true} style={inputStyles}/>
+      <HexColorPicker color={colours[settings.selectedColourIndex]} onChange={gen_set_colours} style={pickerStyles}/>
+      <HexColorInput color={colours[settings.selectedColourIndex]} onChange={gen_set_colours} prefixed={true} style={inputStyles}/>
     </>
   
   );
