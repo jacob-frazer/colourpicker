@@ -91,9 +91,11 @@ const Settings: React.FC<SettingsPageProps> = () => {
           value={settings.defaultPaletteAlgorithm}
           onChange={handleAlgorithmChange}
         >
-          <option value="algorithm1">Algorithm 1</option>
-          <option value="algorithm2">Algorithm 2</option>
-          <option value="algorithm3">Algorithm 3</option>
+          <option value="analagous">Analogous</option>
+          <option value="splitComplimentary">Split Complimentary</option>
+          <option value="complimentary">Complimentary</option>
+          <option value="monochromatic">Monochromatic</option>
+          <option value="triadic">Triadic</option>
         </select>
       </div>
     </div>

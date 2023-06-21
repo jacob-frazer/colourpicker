@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import ColourContext from '../Contexts/ColourContext';
+import SettingsContext from '../Contexts/SettingsContext';
 
 interface ColorPaletteProps {
   name: string;
@@ -7,6 +8,7 @@ interface ColorPaletteProps {
 }
 
 const ColorPalette: React.FC<ColorPaletteProps> = ({ name, colors }) => {
+  const { settings, updateSetting } = useContext(SettingsContext);
   const context = useContext(ColourContext);
   if (!context) {
     return null; // handle undefined context if needed
@@ -44,8 +46,19 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({ name, colors }) => {
     borderStyle: 'solid',
   };
 
+  const camelCase = (str: String) => {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    }).replace(/\s+/g, '');
+  }
+
+  const handleClick = () => {
+    setColours(colors);
+    updateSetting("defaultPaletteAlgorithm", camelCase(name));
+  }
+
   return (
-    <div style={paletteStyle} onClick={() => setColours(colors)}>
+    <div style={paletteStyle} onClick={() => handleClick()}>
       <div style={titleStyle}>{name}</div>
       <div style={colorsContainerStyle}>
         {colors.map((color) => (

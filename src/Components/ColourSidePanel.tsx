@@ -2,13 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import ColorPalette from './ColourPalette';
 import ColourContext from '../Contexts/ColourContext';
 
-import { 
-  generateComplimentaryColors, 
-  generateAnalogousColors,
-  generateMonochromaticColors,
-  generateSplitComplementaryColors,
-  generateTriadicColors,
-} from "../utils/colour_gen"
+import { generatePalette} from "../utils/colour_gen"
 
 const SidePanel: React.FC = () => {
   const [palettes, setPalettes] = useState<{ [key: string]: string[] }>({});
@@ -25,18 +19,23 @@ const SidePanel: React.FC = () => {
   const { colours, setColours } = context;
 
   const generatePalettes = () => {
-    const generated_palettes = {
-        "Complimentary": generateComplimentaryColors(colours[0]),
-        "Analogous": generateAnalogousColors(colours[0]),
-        "Monochromatic": generateMonochromaticColors(colours[0]),
-        "Split Complimentary": generateSplitComplementaryColors(colours[0]),
-        "Triadic": generateTriadicColors(colours[0]),
-        
-        
-        'Random': ['#800000', '#FFA500', '#000080'],
-    }
-    setPalettes(generated_palettes);
+    const algos = [
+      "complimentary",
+      "analogous",
+      "monochromatic",
+      "splitComplimentary",
+      "triadic",
+      "random",
+    ];
+    const generatedPalettes: { [key: string]: string[] } = {};
+    
+    for (const algo of algos) {
+      generatedPalettes[algo] = generatePalette(algo, colours[0]);
+    };
+    setPalettes(generatedPalettes);
   };
+  
+  
 
 
   const sidePanelStyle: React.CSSProperties = {

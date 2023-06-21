@@ -58,7 +58,9 @@ function rgbToHex([r, g, b]: [number, number, number]): string {
   const hexB = b.toString(16).padStart(2, "0");
   return `#${hexR}${hexG}${hexB}`;
 }
-export function generateComplimentaryColors(hexColor: string): [string, string, string] {
+
+
+export function generateComplimentaryColors(hexColor: string): Array<string> {
   const rgbColor = hexToRgb(hexColor);
   const hue = rgbToHue(rgbColor);
   const hue1 = (hue + 180) % 360;
@@ -70,7 +72,7 @@ export function generateComplimentaryColors(hexColor: string): [string, string, 
   return [hexColor, hexColor1, hexColor2];
 }
 
-export function generateAnalogousColors(hexColor: string): [string, string, string] {
+export function generateAnalogousColors(hexColor: string): Array<string> {
   const rgbColor = hexToRgb(hexColor);
   const hue = rgbToHue(rgbColor);
   const hue1 = (hue + 30) % 360;
@@ -82,7 +84,7 @@ export function generateAnalogousColors(hexColor: string): [string, string, stri
   return [hexColor, hexColor1, hexColor2];
 }
 
-export function generateTriadicColors(hexColor: string): [string, string, string] {
+export function generateTriadicColors(hexColor: string): Array<string> {
   const rgbColor = hexToRgb(hexColor);
   const hue = rgbToHue(rgbColor);
   const hue1 = (hue + 120) % 360;
@@ -94,7 +96,7 @@ export function generateTriadicColors(hexColor: string): [string, string, string
   return [hexColor, hexColor1, hexColor2];
 }
 
-export function generateMonochromaticColors(hexColor: string): [string, string, string] {
+export function generateMonochromaticColors(hexColor: string): Array<string> {
   const rgbColor = hexToRgb(hexColor);
   const hue = rgbToHue(rgbColor);
   const rgbColor1 = hueToRgb(hue);
@@ -104,7 +106,7 @@ export function generateMonochromaticColors(hexColor: string): [string, string, 
   return [hexColor, hexColor1, hexColor2];
 }
 
-export function generateSplitComplementaryColors(hexColor: string): [string, string, string] {
+export function generateSplitComplementaryColors(hexColor: string): Array<string> {
   const rgbColor = hexToRgb(hexColor);
   const hue = rgbToHue(rgbColor);
   const hue1 = (hue + 150) % 360;
@@ -114,4 +116,41 @@ export function generateSplitComplementaryColors(hexColor: string): [string, str
   const hexColor1 = rgbToHex(rgbColor1);
   const hexColor2 = rgbToHex(rgbColor2);
   return [hexColor, hexColor1, hexColor2];
+}
+
+export function generateRandomColors(): string[] {
+  const colors: string[] = [];
+  for (let i = 0; i < 3; i++) {
+    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    colors.push(randomColor);
+  }
+  return colors;
+}
+
+// selecting algorithm
+export function generatePalette(algorithm: string, hexColor: string): Array<string> {
+  switch (algorithm) {
+    case "splitComplimentary":
+      return generateSplitComplementaryColors(hexColor);
+
+    case "analagous":
+      return generateAnalogousColors(hexColor);
+
+    case "complimentary":
+      return generateComplimentaryColors(hexColor);
+
+    case "monochromatic":
+      return generateMonochromaticColors(hexColor);
+
+    case "triadic":
+      return generateTriadicColors(hexColor);
+
+    case "random":
+      return generateRandomColors();
+
+    default:
+      return generateAnalogousColors(hexColor);
+
+  }
+  
 }

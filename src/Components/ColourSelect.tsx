@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ColourContext from '../Contexts/ColourContext';
 
-import { generateComplimentaryColors, generateAnalogousColors} from "../utils/colour_gen"
+import { generateComplimentaryColors, generateAnalogousColors, generatePalette } from "../utils/colour_gen"
 
 import { HexColorPicker, HexColorInput, } from "react-colorful";
 import SettingsContext from '../Contexts/SettingsContext';
@@ -20,10 +20,10 @@ const CombinedColor = () => {
     if (settings.individualColourSelect) {
       let new_colours = colours.slice()
       new_colours[settings.selectedColourIndex] = c
-      console.log(new_colours)
       setColours(new_colours)
     } else {
-      let calced_colours = generateAnalogousColors(c)
+      //let calced_colours = generateAnalogousColors(c)
+      let calced_colours = generatePalette(settings.defaultPaletteAlgorithm, c)
       setColours(calced_colours)
     }
   }
