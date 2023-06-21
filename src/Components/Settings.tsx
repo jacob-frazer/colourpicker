@@ -14,8 +14,7 @@ const Settings: React.FC<SettingsPageProps> = () => {
 
   const handleToggleAdvancedMode = () => {
     updateSetting('individualColourSelect', !settings.individualColourSelect);
-    console.log(settings)
-    console.log(!settings.individualColourSelect)
+    updateSetting('selectedColourIndex', 0);
   };
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

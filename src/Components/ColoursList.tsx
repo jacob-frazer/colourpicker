@@ -69,12 +69,8 @@ const ColourList: React.FC<ColorListProps> = ({ colors }) => {
   const handleIndividualSelection = (index: number) => {
     if (!settings.individualColourSelect) return
 
-    // logic to give the circle a tick but need to remove it from the other circles?
-
     // set the selected index as the selected one here
     updateSetting("selectedColourIndex", index)
-    console.log(index)
-    console.log(settings)
   }
 
   return (
@@ -82,7 +78,7 @@ const ColourList: React.FC<ColorListProps> = ({ colors }) => {
       <div style={titleStyle}>Current Palette</div>
       {colors.map((color, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <Circle colour={color} onClick={() => handleIndividualSelection(i)} />
+          <Circle colour={color} onClick={() => handleIndividualSelection(i)} tick={settings.individualColourSelect && i===settings.selectedColourIndex}/>
           <span
             style={{ ...spanStyle, marginLeft: '10px' }}
             onClick={() => handleCopyToClipboard(color, i)}
