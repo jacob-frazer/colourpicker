@@ -71,6 +71,7 @@ const Settings: React.FC<SettingsPageProps> = () => {
           onChange={handleToggleAdvancedMode}
         />
       </div>
+      {/* FEATURE NEEDS TO BE IMPLEMENTED STILL
       <div style={settingItemStyle}>
         <label htmlFor="numberOfColours" style={labelStyle}>Number of Colours</label>
         <select
@@ -84,6 +85,7 @@ const Settings: React.FC<SettingsPageProps> = () => {
           <option value="5">5</option>
         </select>
       </div>
+      */}
       <div style={settingItemStyle}>
         <label htmlFor="defaultPaletteAlgorithm" style={labelStyle}>Palette Algorithm</label>
         <select
