@@ -22,8 +22,7 @@ const CombinedColor = () => {
       new_colours[settings.selectedColourIndex] = c
       setColours(new_colours)
     } else {
-      //let calced_colours = generateAnalogousColors(c)
-      let calced_colours = generatePalette(settings.defaultPaletteAlgorithm, c)
+      let calced_colours = generatePalette(settings.defaultPaletteAlgorithm, c, settings.numberOfColours)
       setColours(calced_colours)
     }
   }

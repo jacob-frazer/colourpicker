@@ -1,12 +1,15 @@
 import React, { useEffect, useContext, useState } from 'react';
 import ColorPalette from './ColourPalette';
 import ColourContext from '../Contexts/ColourContext';
+import SettingsContext from '../Contexts/SettingsContext';
 
-import { generatePalette} from "../utils/colour_gen"
+import { generatePalette } from "../utils/colour_gen"
+import { algo_by_num_colours } from "../utils/allowed_algorithms"
 
 const SidePanel: React.FC = () => {
   const [palettes, setPalettes] = useState<{ [key: string]: string[] }>({});
   const context = useContext(ColourContext);
+  const { settings, updateSetting } = useContext(SettingsContext);
 
   useEffect(() => {
     generatePalettes();
@@ -19,18 +22,11 @@ const SidePanel: React.FC = () => {
   const { colours, setColours } = context;
 
   const generatePalettes = () => {
-    const algos = [
-      "complimentary",
-      "analogous",
-      "monochromatic",
-      "splitComplimentary",
-      "triadic",
-      "random",
-    ];
+    const algos = algo_by_num_colours[settings.numberOfColours];
     const generatedPalettes: { [key: string]: string[] } = {};
     
     for (const algo of algos) {
-      generatedPalettes[algo] = generatePalette(algo, colours[0]);
+      generatedPalettes[algo] = generatePalette(algo, colours[0], settings.numberOfColours);
     };
     setPalettes(generatedPalettes);
   };

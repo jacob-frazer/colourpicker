@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import SettingsContext from '../Contexts/SettingsContext';
 import ColourContext from '../Contexts/ColourContext';
+import { algo_by_num_colours } from '../utils/allowed_algorithms';
+import { generatePalette } from '../utils/colour_gen';
 
 interface SettingsPageProps {  }
   
@@ -20,11 +22,14 @@ const Settings: React.FC<SettingsPageProps> = () => {
   const handleNumberChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const number = parseInt(event.target.value);
     updateSetting('numberOfColours', number);
+    // generate new palette with algo and new number
+    setColours(generatePalette(settings.defaultPaletteAlgorithm, colours[0], settings.numberOfColours))
   };
 
   const handleAlgorithmChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const algorithm = event.target.value;
     updateSetting('defaultPaletteAlgorithm', algorithm);
+    setColours(generatePalette(settings.defaultPaletteAlgorithm, colours[0], settings.numberOfColours))
   };
 
   const containerStyle: React.CSSProperties = {
@@ -71,7 +76,6 @@ const Settings: React.FC<SettingsPageProps> = () => {
           onChange={handleToggleAdvancedMode}
         />
       </div>
-      {/* FEATURE NEEDS TO BE IMPLEMENTED STILL
       <div style={settingItemStyle}>
         <label htmlFor="numberOfColours" style={labelStyle}>Number of Colours</label>
         <select
@@ -85,7 +89,6 @@ const Settings: React.FC<SettingsPageProps> = () => {
           <option value="5">5</option>
         </select>
       </div>
-      */}
       <div style={settingItemStyle}>
         <label htmlFor="defaultPaletteAlgorithm" style={labelStyle}>Palette Algorithm</label>
         <select
@@ -93,11 +96,14 @@ const Settings: React.FC<SettingsPageProps> = () => {
           value={settings.defaultPaletteAlgorithm}
           onChange={handleAlgorithmChange}
         >
+          {algo_by_num_colours[settings.numberOfColours].map( (algos) => <option value={algos}>{algos}</option>)}
+          {/* 
           <option value="analagous">Analogous</option>
           <option value="splitComplimentary">Split Complimentary</option>
           <option value="complimentary">Complimentary</option>
           <option value="monochromatic">Monochromatic</option>
           <option value="triadic">Triadic</option>
+          */}
         </select>
       </div>
     </div>
