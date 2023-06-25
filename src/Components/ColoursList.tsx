@@ -16,6 +16,8 @@ const ColourList: React.FC<ColorListProps> = ({ colors }) => {
   
   
   useEffect(() => {
+    // since we are double setting to stop a bug if we do with random starts infinite loop
+    if (settings.defaultPaletteAlgorithm === 'random') return
     setColours(generatePalette(settings.defaultPaletteAlgorithm, colours[0], settings.numberOfColours));
   }, [settings]);
 
