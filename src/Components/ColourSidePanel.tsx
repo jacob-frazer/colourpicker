@@ -43,6 +43,7 @@ const SidePanel: React.FC = () => {
     border: '3px solid',
     borderColor: colours[1],
     padding: '20px',
+    zIndex: 1000,
   };
 
   

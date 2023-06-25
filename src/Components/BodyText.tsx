@@ -17,7 +17,7 @@ const BodyText: React.FC<BodyTextProps> = ({ text }) => {
     fontWeight: 'lighter',
     fontSize: '18px',
     paddingTop: '10rem',
-    color: colours[2],
+    color: colours[2] || colours.at(-1),
   };
 
   return <p style={textStyle}>{text}</p>;

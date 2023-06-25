@@ -23,9 +23,9 @@ export function generateSplitComplementaryColors(hexColor: string): string[] {
 }
 
 export function generateQuadraticColors(hexColor: string): string[] {
-  const quadratic1 = chroma(hexColor).saturate(1.5).brighten(1.5).set('hsl.h', '+90');
-  const quadratic2 = chroma(hexColor).saturate(1.5).brighten(1.5).set('hsl.h', '+180');
-  const quadratic3 = chroma(hexColor).saturate(1.5).brighten(1.5).set('hsl.h', '-90');
+  const quadratic1 = chroma(hexColor).saturate(1.5).brighten(2).set('hsl.h', '+90');
+  const quadratic2 = chroma(hexColor).saturate(1.5).brighten(2).set('hsl.h', '+180');
+  const quadratic3 = chroma(hexColor).saturate(1.5).brighten(2).set('hsl.h', '-90');
   const hexColor1 = quadratic1.hex();
   const hexColor2 = quadratic2.hex();
   const hexColor3 = quadratic3.hex();
@@ -40,7 +40,7 @@ export function generateAnalogousColors(hexColor: string, count: number): string
   
   for (let i = 1; i < count; i++) {
     const angle = i * angleIncrement;
-    const analogousColor = baseColor.set('hsl.h', `+${angle}`).saturate(1.5).brighten(1.5).hex();
+    const analogousColor = baseColor.set('hsl.h', `+${angle}`).saturate(1.5).brighten(2).hex();
     palette.push(analogousColor);
   }
   
@@ -55,8 +55,7 @@ export function generateMonochromaticColors(hexColor: string, count: number): st
 export function generateRandomColors(count: number): string[] {
   const colors: string[] = [];
   for (let i = 0; i < count; i++) {
-    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-    colors.push(randomColor);
+    colors.push(chroma.random().hex());
   }
   return colors;
 }
