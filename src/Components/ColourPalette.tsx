@@ -61,8 +61,8 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({ name, colors }) => {
     <div style={paletteStyle} onClick={() => handleClick()}>
       <div style={titleStyle}>{name}</div>
       <div style={colorsContainerStyle}>
-        {colors.map((color) => (
-          <div key={name} style={{ ...colorStyle, backgroundColor: color }}></div>
+        {colors.map((color, i) => (
+          <div key={name+i} style={{ ...colorStyle, backgroundColor: color }}></div>
         ))}
       </div>
     </div>

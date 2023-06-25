@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ColourContext from '../Contexts/ColourContext';
 
-import { generateComplimentaryColors, generateAnalogousColors, generatePalette } from "../utils/colour_gen"
+import { generatePalette } from "../utils/colour_gen"
 
 import { HexColorPicker, HexColorInput, } from "react-colorful";
 import SettingsContext from '../Contexts/SettingsContext';

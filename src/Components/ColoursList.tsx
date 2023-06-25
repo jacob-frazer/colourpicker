@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Circle from './Circle';
 import ColourContext from '../Contexts/ColourContext';
 import { FiClipboard, FiCheck } from 'react-icons/fi';
-
+import { generatePalette } from '../utils/colour_gen';
 import SettingsContext from '../Contexts/SettingsContext';
 
 interface ColorListProps {
@@ -13,12 +13,17 @@ const ColourList: React.FC<ColorListProps> = ({ colors }) => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const { settings, updateSetting } = useContext(SettingsContext);
   const context = useContext(ColourContext);
+  
+  
+  useEffect(() => {
+    setColours(generatePalette(settings.defaultPaletteAlgorithm, colours[0], settings.numberOfColours));
+  }, [settings]);
+
   if (!context) {
     return null; // handle undefined context if needed
   }
 
   const { colours, setColours } = context;
-  
 
   const backgroundStyle: React.CSSProperties = {
     backgroundColor: colours[0],
@@ -77,7 +82,7 @@ const ColourList: React.FC<ColorListProps> = ({ colors }) => {
     <div style={backgroundStyle}>
       <div style={titleStyle}>Current Palette</div>
       {colors.map((color, i) => (
-        <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+        <div key={color + i} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
           <Circle colour={color} onClick={() => handleIndividualSelection(i)} tick={settings.individualColourSelect && i===settings.selectedColourIndex}/>
           <span
             style={{ ...spanStyle, marginLeft: '10px' }}

@@ -22,6 +22,8 @@ const Settings: React.FC<SettingsPageProps> = () => {
   const handleNumberChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const number = parseInt(event.target.value);
     updateSetting('numberOfColours', number);
+    updateSetting('defaultPaletteAlgorithm', 'analogous');
+    
     // generate new palette with algo and new number
     setColours(generatePalette(settings.defaultPaletteAlgorithm, colours[0], settings.numberOfColours))
   };
