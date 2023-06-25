@@ -97,13 +97,6 @@ const Settings: React.FC<SettingsPageProps> = () => {
           onChange={handleAlgorithmChange}
         >
           {algo_by_num_colours[settings.numberOfColours].map( (algos) => <option value={algos}>{algos}</option>)}
-          {/* 
-          <option value="analagous">Analogous</option>
-          <option value="splitComplimentary">Split Complimentary</option>
-          <option value="complimentary">Complimentary</option>
-          <option value="monochromatic">Monochromatic</option>
-          <option value="triadic">Triadic</option>
-          */}
         </select>
       </div>
     </div>

@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
     fontFamily: 'monospace',
     fontSize: '16px',
     fontWeight: '200',
-    color: colours[2],
+    color: colours.at(-1),
     textDecoration: 'none',
   };
 
