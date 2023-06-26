@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ColourContext from '../Contexts/ColourContext';
 
 interface BodyTextProps {
@@ -17,7 +17,7 @@ const BodyText: React.FC<BodyTextProps> = ({ text }) => {
     fontWeight: 'lighter',
     fontSize: '18px',
     paddingTop: '10rem',
-    color: colours[2] || colours.at(-1),
+    color: colours[Math.floor(Math.random() * (5-2) + 2)] || colours.at(-1),   // random col of index 2/3/4 or just last one if outside range
   };
 
   return <p style={textStyle}>{text}</p>;
