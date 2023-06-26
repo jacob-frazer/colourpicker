@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
 
   return (
     <a href="https://jacobfrazer.co.uk" style={footerStyle}>
-      Colo.ur created by CobTechnologies
+      Colour.app created by CobTechnologies
     </a>
   );
 };
