@@ -1,8 +1,12 @@
 import { createContext } from 'react';
 
-// use react context to hold + update colour variables
 type Colours = string[];
 type SetColours = (color: Colours) => void;
-const ColourContext = createContext<{ colours: Colours; setColours: SetColours } | undefined>(undefined);
+const defaultColours: Colours = ["#0a051f", "#b200ff", "#004cff"]; // Set your desired default colours here
 
-export default ColourContext
+const ColourContext = createContext<{ colours: Colours; setColours: SetColours }>({
+  colours: defaultColours,
+  setColours: () => {},
+});
+
+export default ColourContext;
