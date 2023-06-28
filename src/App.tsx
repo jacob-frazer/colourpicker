@@ -11,13 +11,19 @@ import Settings from './Components/Settings';
 
 import ColourContext from './Contexts/ColourContext';
 import { SettingsProvider } from './Contexts/SettingsContext';
+import MobileOnly from './Components/MobileOnly';
 
 
-function App() {
-  const [colours, setColours] = useState(["#0a051f", "#b200ff", "#004cff"]);
+const App: React.FC<{}> = () => {
+  const isMobile = window.innerWidth <= 768;
+  const [colours, setColours] = useState(["#374c4c", "#759ed6", "#878ad3"]);
 
   return (
     <>
+      {
+      isMobile ?
+      <MobileOnly/>
+      :
       <ColourContext.Provider value={{colours, setColours}}>
       <SettingsProvider>
         <Background>
@@ -30,8 +36,9 @@ function App() {
         </Background>
       </SettingsProvider>
       </ColourContext.Provider>
+      }
     </>
   );
-}
+};
 
 export default App;
